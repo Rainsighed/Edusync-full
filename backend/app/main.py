@@ -2,7 +2,7 @@ from fastapi import FastAPI, Request, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from .config import settings
-from .api.v1 import lessons, classroom, analytics, dna, auth
+from .api.v1 import lessons, classroom, analytics, dna, auth, users
 from .db.session import Base, engine
 
 app = FastAPI(title="Edusync API", version="1.0.0")
@@ -46,6 +46,7 @@ async def startup_event():
 
 # Register routers
 app.include_router(auth.router, prefix="/api/v1", tags=["auth"])
+app.include_router(users.router, prefix="/api/v1", tags=["users"])
 app.include_router(lessons.router, prefix="/api/v1", tags=["lessons"])
 app.include_router(classroom.router, prefix="/api/v1", tags=["classroom"])
 app.include_router(analytics.router, prefix="/api/v1", tags=["analytics"])
